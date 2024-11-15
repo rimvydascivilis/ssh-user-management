@@ -1,0 +1,21 @@
+---
+- name: Load user data from files
+  include_vars:
+    file: "{{ item }}"
+  loop:
+    - "{{ role_path }}/files/users.yml"
+    - "{{ role_path }}/files/default_users.yml"
+
+- name: Get list of existing users
+  ansible.builtin.shell: "getent passwd | cut -d: -f1"
+  register: existing_users_result
+- set_fact:
+    existing_users: "{{ existing_users_result.stdout_lines }}"
+
+- name: Identify users to delete
+  set_fact:
+    users_to_delete: "{{ existing_users | difference(system_users) | difference(users | map(attribute='name') | list) }}"
+
+- name: Print manually created users
+  ansible.builtin.debug:
+    msg: "Manually created users: {{ users_to_delete }}"

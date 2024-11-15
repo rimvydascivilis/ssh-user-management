@@ -1,0 +1,18 @@
+---
+- name: Load user data
+  include_tasks: load_users.yml
+
+- name: Warn if home directory size exceeds .5GB
+  include_tasks: warn_home_size.yml
+
+- name: Manage users (create, delete)
+  include_tasks: manage_users.yml
+
+- name: Update SSH keys for users
+  include_tasks: update_ssh_keys.yml
+
+- name: Manage user groups (sudo, docker)
+  include_tasks: manage_groups.yml
+
+- name: Apply SSHD configuration for spectators
+  include_tasks: spectator_sshd_config.yml

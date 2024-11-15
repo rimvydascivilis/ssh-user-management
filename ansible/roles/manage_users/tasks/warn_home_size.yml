@@ -1,0 +1,11 @@
+- name: Check home directory size for users to be deleted
+  ansible.builtin.shell: "du -sm /home/{{ item }} | cut -f1"
+  loop: "{{ users_to_delete }}"
+  when: users_to_delete | length > 0
+  register: home_size
+
+- name: Warn if home directory size exceeds 512 MB for users to be deleted
+  ansible.builtin.debug:
+    msg: "Warning: Home directory for {{ item.item }} is {{ item.stdout }} MB, exceeding 512 MB."
+  loop: "{{ home_size.results }}"
+  when: item.stdout is defined and item.stdout | int > 512

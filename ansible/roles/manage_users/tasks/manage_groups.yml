@@ -1,0 +1,20 @@
+- name: Ensure regular users have {usergroup}
+  ansible.builtin.user:
+    name: "{{ item }}"
+    groups: "{{ item }}"
+    state: present
+  loop: "{{ existing_users | difference(system_users) | difference(users_to_delete) | difference(administrators | map(attribute='name') | list) | difference(container_users | map(attribute='name') | list) }}"
+
+- name: Ensure container users have {usergroup} and docker
+  ansible.builtin.user:
+    name: "{{ item.name }}"
+    groups: "{{ item.name }},docker"
+    state: present
+  loop: "{{ container_users }}"
+
+- name: Ensure administrators have {usergroup}, docker, and sudo
+  ansible.builtin.user:
+    name: "{{ item.name }}"
+    groups: "{{ item.name }},docker,sudo"
+    state: present
+  loop: "{{ administrators }}"

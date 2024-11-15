@@ -1,0 +1,35 @@
+name: Run user management playbook
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'ansible/**'
+  schedule:
+    - cron: '0 */8 * * *'
+
+jobs:
+  deploy:
+    name: Run user management playbook
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up SSH
+        run: |
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/ansible
+          chmod 700 ~/.ssh
+          chmod 600 ~/.ssh/ansible
+
+      - name: Install Ansible
+        shell: bash
+        run: |
+          sudo apt update
+          sudo apt install -y ansible
+
+      - name: Run Ansible Playbook
+        working-directory: ansible
+        run: |
+          ansible-playbook 

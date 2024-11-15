@@ -1,0 +1,6 @@
+---
+- include_tasks: install_docker.yml
+
+- include_tasks: harden_sshd.yml
+
+- include_tasks: setup_sudoers.yml

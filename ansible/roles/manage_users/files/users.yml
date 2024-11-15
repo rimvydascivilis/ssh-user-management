@@ -1,0 +1,21 @@
+users:
+  - name: user1
+    key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKR9/1UMbpRuChIfKyGvRMAi41kxRR6obzz7TMQUHHMe rimvydas@Laptop
+  - name: user2
+    key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBBoBDovw24p08Uw9nKaIdJVjAfWPVZFez749RONZ7Mw rimvydas@Laptop
+  - name: user3
+    key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICZUGf7lYE8dH9ZgZdxSeHYv8pHbYN7LBPG6ZqDBEZyI rimvydas@Laptop
+  - name: user4
+    key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEi028QxaeLmOp7cskS2ep617exfXMlWCmt1oQfYnyVY rimvydas@Laptop
+
+administrators: []
+
+container_users: []
+
+spectators: []
+  # - name: user4
+  #   forwarding:
+  #     - target: vm1
+  #       services:
+  #       - ip: 10.0.1.3 # vm2
+  #         port: 22
