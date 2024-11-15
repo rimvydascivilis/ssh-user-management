@@ -10,8 +10,7 @@ users:
   - name: user5
     key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHL3+8zFfkml6U3gRGLqAB5N0z/+zTvbAA8FSUoz7cRN rimvydas@Laptop
 
-administrators:
-  - name: user2
+administrators: []
 
 container_users:
   - name: user3
