@@ -32,4 +32,4 @@ jobs:
       - name: Run Ansible Playbook
         working-directory: ansible
         run: |
-          ansible-playbook 
+          ansible-playbook playbook.yml
