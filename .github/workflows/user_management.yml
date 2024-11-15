@@ -19,6 +19,7 @@ jobs:
 
       - name: Set up SSH
         run: |
+          mkdir -p ~/.ssh
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/ansible
           chmod 700 ~/.ssh
           chmod 600 ~/.ssh/ansible
