@@ -1,0 +1,31 @@
+---
+- name: Delete users not declared in SSOT
+  ansible.builtin.user:
+    name: "{{ item }}"
+    state: absent
+    remove: no
+  loop: "{{ users_to_delete }}"
+
+- name: Create and update users (excluding spectators)
+  ansible.builtin.user:
+    name: "{{ item.name }}"
+    state: present
+    shell: /bin/bash
+    create_home: true
+  loop: "{{ users | rejectattr('name', 'in', spectators | map(attribute='name') | list) | list }}"
+
+- name: Create spectator users with restricted shell access
+  ansible.builtin.user:
+    name: "{{ item.name }}"
+    shell: /usr/sbin/nologin
+  loop: "{{ spectators }}"
+
+- name: Ensure user directories are owned by the respective user
+  ansible.builtin.file:
+    path: "/home/{{ item.name }}"
+    owner: "{{ item.name }}"
+    group: "{{ item.name }}"
+    mode: '0755'
+    state: directory
+    recurse: yes
+  loop: "{{ users | rejectattr('name', 'in', spectators | map(attribute='name') | list) | list }}"

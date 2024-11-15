@@ -1,0 +1,7 @@
+---
+- name: Apply SSHD configuration for spectators
+  ansible.builtin.template:
+    src: sshd_spectator_config.j2
+    dest: /etc/ssh/sshd_config.d/spectators.conf
+    mode: '0644'
+  notify: Restart SSH service

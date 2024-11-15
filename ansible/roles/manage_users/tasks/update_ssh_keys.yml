@@ -1,0 +1,6 @@
+---
+- name: Install authorized SSH keys for users
+  ansible.builtin.authorized_key:
+    user: "{{ item.name }}"
+    key: "{{ item.key }}"
+  loop: "{{ users }}"

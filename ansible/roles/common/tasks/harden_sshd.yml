@@ -1,0 +1,7 @@
+---
+- name: Apply Hardened SSH configuration
+  ansible.builtin.template:
+    src: sshd_config.j2
+    dest: /etc/ssh/sshd_config.d/hardened.conf
+    mode: '0644'
+  notify: Restart SSH service

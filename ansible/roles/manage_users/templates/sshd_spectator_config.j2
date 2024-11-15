@@ -1,0 +1,11 @@
+{% for spectator in spectators %}
+{% for forward in spectator.forwarding %}
+Match User {{ spectator.name }}
+{% if forward.target == inventory_hostname and spectator.forwarding is defined %}
+  AllowTcpForwarding yes
+PermitOpen  {% for service in forward.services %}{{ service.ip }}:{{ service.port }} {% endfor %}
+{% else %}
+  AllowTcpForwarding no
+{% endif %}
+{% endfor %}
+{% endfor %}
