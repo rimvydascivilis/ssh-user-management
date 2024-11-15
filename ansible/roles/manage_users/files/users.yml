@@ -8,14 +8,16 @@ users:
   - name: user4
     key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEi028QxaeLmOp7cskS2ep617exfXMlWCmt1oQfYnyVY rimvydas@Laptop
 
-administrators: []
+administrators:
+  - name: user2
 
-container_users: []
+container_users:
+  - name: user3
 
-spectators: []
-  # - name: user4
-  #   forwarding:
-  #     - target: vm1
-  #       services:
-  #       - ip: 10.0.1.3 # vm2
-  #         port: 22
+spectators:
+  - name: user4
+    forwarding:
+      - target: vm1
+        services:
+        - ip: 10.0.1.3 # vm2
+          port: 22
